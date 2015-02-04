@@ -1,0 +1,103 @@
+html, body {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	font-family: Arial;
+}
+
+.main {
+	height: 100%;
+	padding-bottom: 50px;
+	box-sizing: border-box;
+	background: black;
+}
+
+.header {
+	height: 40px;
+	text-align: center;
+	line-height: 40px;
+	background: #D58C04;
+	color: #eee;
+	font-size: 20px;
+}
+
+.content {
+	padding: 40px 20px;
+}
+
+.html-wrapper {
+	transition: .4s linear;
+	margin-left: 0;
+}
+
+.html-code {
+	color: #eee;
+	font-family: Courier;
+}
+
+.html-code tr {
+	background: #222;
+}
+
+.html-code td {
+	padding: 5px 10px;
+	min-width: 15px;
+}
+
+.html-code td.line-num {
+	color: #ccc;
+}
+
+.html-code .flag {
+	width: 15px;
+	height: 15px;
+	border-radius: 50%;
+	display: none;
+	box-sizing: border-box;
+}
+
+.html-code .needed .flag {
+	border: 2px solid green;
+	display: block;
+}
+
+.html-code .selected .flag {
+	display: block;
+	background: red;
+}
+
+.html-code .needed.selected .flag {
+	background: green;
+	border: none;
+}
+
+.input-wrapper {
+	padding-bottom: 20px;
+}
+
+.selector {
+	width: 400px;
+	height: 20px;
+}
+
+.yellow {
+	color: yellow;
+}
+
+.green {
+	color: green;
+}
+
+.red {
+	color: red;
+}
+
+.footer {
+	height: 50px;
+	position: relative;
+	top: -50px;
+	line-height: 50px;
+	background: #D58C04;
+	text-align: center;
+	font-size: 12px;
+}

@@ -1,0 +1,14 @@
+3,8
+<div class="wrapper">
+	<span class="plain-text"></span>
+	<div class="foo div">
+		<div id="bar" class="test1 test2">
+			<span></span>
+		</div>
+	</div>
+	<div class="very-very-complex-class">
+		<div class="test1 test2 test3 test4">
+			<span style="display: none;"></span>
+		</div>
+	</div>
+</div>
