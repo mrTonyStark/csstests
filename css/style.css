@@ -32,11 +32,11 @@ html, body {
 
 .html-code {
 	color: #eee;
-	font-family: Courier;
+	font-family: "Lucida Console", monospace;
 }
 
 .html-code tr {
-	background: #222;
+	background: #272822;
 }
 
 .html-code td {
@@ -81,15 +81,15 @@ html, body {
 }
 
 .yellow {
-	color: yellow;
+	color: #E6DB74;
 }
 
 .green {
-	color: green;
+	color: #6AC62E;
 }
 
 .red {
-	color: red;
+	color: #F92672;
 }
 
 .footer {
