@@ -123,7 +123,7 @@ $(function (){
 		try {
 			var result = rootNode[0].querySelectorAll(selector);
 			for (var i = 0; i < result.length; i++) {
-				$('tr:nth-child(' + Number(1 + +$(result[i]).attr('data-csstest-row')) + ')').addClass('selected');
+				$('tr:nth-child(' + (+$(result[i]).attr('data-csstest-row') + 1) + ')').addClass('selected');
 			}
 		} catch(e) {
 			console.log(e);
