@@ -34,6 +34,7 @@ html, body {
 .html-code {
 	color: #eee;
 	font-family: "Lucida Console", monospace;
+	font-size: 14px;
 }
 
 .html-code tr {
@@ -50,8 +51,8 @@ html, body {
 }
 
 .html-code .flag {
-	width: 15px;
-	height: 15px;
+	width: 14px;
+	height: 14px;
 	border-radius: 50%;
 	display: none;
 	box-sizing: border-box;

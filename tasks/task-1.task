@@ -1,14 +1,6 @@
-3,8
+2
 <div class="wrapper">
-	<span class="plain-text"></span>
-	<div class="foo div">
-		<div id="bar" class="test1 test2">
-			<span></span>
-		</div>
-	</div>
-	<div class="very-very-complex-class">
-		<div class="test1 test2 test3 test4">
-			<span style="display: none;"></span>
-		</div>
-	</div>
+	<a href="http://google.com">google.com</a>
+	<a href="http://image.jpg">image</a>
+	<a href="http://another.com">Anything</a>
 </div>
