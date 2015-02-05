@@ -19,6 +19,7 @@ html, body {
 	background: #D58C04;
 	color: #eee;
 	font-size: 20px;
+	text-shadow: 0px 5px 5px black;
 }
 
 .content {

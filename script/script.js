@@ -116,7 +116,7 @@ $(function (){
 		var rootNode = $("<div/>");
 		rootNode.append(node);
 		try {
-			var result = $(rootNode).find(selector);
+			var result = rootNode[0].querySelectorAll(selector);
 			for (var i = 0; i < result.length; i++) {
 				var title = $(result[i]).prop('outerHTML').split('>')[0] + ">";
 				title = title.replaceAll("\"", "\\\"");
