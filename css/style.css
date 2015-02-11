@@ -9,17 +9,19 @@ html, body {
 	height: 100%;
 	padding-bottom: 50px;
 	box-sizing: border-box;
-	background: black;
+	background: #F7FFFE;
+	color: #495655;
 }
 
 .header {
-	height: 40px;
-	text-align: center;
-	line-height: 40px;
-	background: #D58C04;
+	height: 60px;
+	text-align: left;
+	line-height: 60px;
+	background: #26A69A;
 	color: #eee;
-	font-size: 20px;
-	text-shadow: 0px 5px 5px black;
+	font-size: 24px;
+	box-shadow: 0px 1px 10px #000;
+	padding-left: 20px;
 }
 
 .content {
@@ -27,18 +29,23 @@ html, body {
 }
 
 .html-wrapper {
-	transition: .4s linear;
-	margin-left: 0;
+	transition: .5s linear;
+	position: relative;
+	left: 0;
+	top: 0;
+	transform: rotate(0) scale(1);
+	box-shadow: 0px 2px 10px #555;
 }
 
 .html-code {
-	color: #eee;
+	color: #495655;
 	font-family: "Lucida Console", monospace;
-	font-size: 14px;
+	font-size: 16px;
+	width: 100%;
 }
 
 .html-code tr {
-	background: #272822;
+	background: #fff;
 }
 
 .html-code td {
@@ -47,7 +54,7 @@ html, body {
 }
 
 .html-code td.line-num {
-	color: #ccc;
+	color: #aaa;
 }
 
 .html-code .flag {
@@ -58,40 +65,48 @@ html, body {
 	box-sizing: border-box;
 }
 
+.code {
+	width: 100%;
+}
+
 .html-code .needed .flag {
-	border: 2px solid green;
+	border: 2px solid #26BF26;
 	display: block;
 }
 
 .html-code .selected .flag {
 	display: block;
-	background: red;
+	background: #FF5E5E;
 }
 
 .html-code .needed.selected .flag {
-	background: green;
+	background: #26BF26;
 	border: none;
 }
 
 .input-wrapper {
-	padding-bottom: 20px;
+	padding: 20px 0;
 }
 
 .selector {
-	width: 400px;
+	width: 100%	;
 	height: 20px;
+	outline: none;
+	border: none;
+	border-bottom: 1px solid #495655;
+	background: none;
 }
 
 .yellow {
-	color: #E6DB74;
+	color: #DBAC39;
 }
 
 .green {
-	color: #6AC62E;
+	color: #6CA135;
 }
 
 .red {
-	color: #F92672;
+	color: #FF4270;
 }
 
 .footer {
@@ -102,4 +117,35 @@ html, body {
 	background: #D58C04;
 	text-align: center;
 	font-size: 12px;
+}
+
+.sm-container {
+	width: 400px;
+}
+
+.sm-container:before, .sm-container:after {
+	content: "";
+	display: table;
+}
+
+.sm-container:after {
+	clear: both;
+}
+
+.forbidden {
+	float: left;
+	width: 70%;
+}
+
+.forbidden.error {
+	color: #FF4270;
+}
+
+.time {
+	float: right;
+	width: 30%;
+}
+
+.data {
+	font-weight: bold;
 }

@@ -2,6 +2,10 @@ $(function (){
 
 	var taskNumber = 1;
 	var rootNode;
+	var startTime;
+	var intervalId;
+	var forbidden;
+	var forbiddenFlag = true;
 
 	String.prototype.replaceAll = function (exp, str) {
 		return this.split(exp).join(str);
@@ -67,18 +71,37 @@ $(function (){
 	}
 
 	var hideHtmlBlock = function (){
-		$('.html-wrapper').css('margin-left', '-100%');
+		$('.html-wrapper').css('left', '-2000px').css('top', '-300px').css('transform', 'rotate(-90deg) scale(2)');
 	};
 
 	var showHtmlBlock = function (){
-		$('.html-wrapper').css('margin-left', '0');
+		$('.html-wrapper').css('left', '0').css('top', '0').css('transform', 'rotate(0) scale(1)');
 	};
+
+	function simpleTimer(block) {
+	    var time = (+$(block).html().split(':')[0]) * 60 + (+$(block).html().split(':')[1]);
+
+	    var minutes = parseInt(++time / 60);
+	    if ( minutes < 1 ) minutes = 0;
+	    time = parseInt(time - minutes * 60);
+	    if ( minutes < 10 ) minutes = '0' + minutes;
+
+	    var seconds = time;
+	    if ( seconds < 10 ) seconds = '0' + seconds;
+
+	    $(block).html(minutes + ':' + seconds);
+	}
 
 	var showTask = function (num){
 		$.get("../tasks/task-" + num + ".task", function (data) {
+			forbiddenFlag = true;
 			$('.html-code').html("");
 			var lines = data.split("\n");
-			var needed = lines.splice(0, 1)[0].split(",").map(Number);
+			var firstLine = lines.splice(0, 1)[0].split('\\');
+			var needed = firstLine[0].split(",").map(Number);
+			forbidden = firstLine[1].split(' ');
+
+			$('.forbidden .data').html(firstLine[1]);
 			rootNode = $("<div/>");
 			rootNode.append($(lines.join("\n")));
 			$(rootNode).find('*').each(function (index){
@@ -98,6 +121,13 @@ $(function (){
 			console.log("Task is not found");
 		});
 		showHtmlBlock();
+		setTimeout(function (){
+			startTime = new Date();
+			$('.time .data').html('00:00');
+			intervalId = setInterval(function (){
+				simpleTimer($('.time .data'));
+			}, 1000);
+		}, 500);
 	};
 
 	var checkForWelldone = function (){
@@ -108,7 +138,9 @@ $(function (){
 					return false;
 				}
 			}
-			if (needed.length == $('.selected').length) {
+			if (needed.length == $('.selected').length && forbiddenFlag) {
+				console.log((new Date() - startTime)/1000);
+				clearInterval(intervalId);
 				return true;
 			} else {
 				return false;
@@ -118,9 +150,19 @@ $(function (){
 		}
 	};
 
-	var runSelector = function (selector){
+	var runSelector = function (selector) {
 		$('.html-code tr').removeClass('selected');
 		try {
+			for (var i = 0; i < forbidden.length; i++) {
+				if (selector.indexOf(forbidden[i]) != -1) {
+					$('.forbidden').addClass('error');
+					forbiddenFlag = false;
+					break;
+				} else {
+					$('.forbidden').removeClass('error');
+					forbiddenFlag = true;
+				}
+			}
 			var result = rootNode[0].querySelectorAll(selector);
 			for (var i = 0; i < result.length; i++) {
 				$('tr:nth-child(' + (+$(result[i]).attr('data-csstest-row') + 1) + ')').addClass('selected');
