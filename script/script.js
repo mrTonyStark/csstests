@@ -6,6 +6,9 @@ $(function (){
 	var intervalId;
 	var forbidden;
 	var forbiddenFlag = true;
+	var staticTasks = $('script[type="text/csstask"]')
+		.map(function(){ return $(this).text() })
+		.get()
 
 	String.prototype.replaceAll = function (exp, str) {
 		return this.split(exp).join(str);
@@ -93,33 +96,55 @@ $(function (){
 	}
 
 	var showTask = function (num){
-		$.get("../tasks/task-" + num + ".task", function (data) {
+		var renderTask = function(task) {
 			forbiddenFlag = true;
-			$('.html-code').html("");
-			var lines = data.split("\n");
-			var firstLine = lines.splice(0, 1)[0].split('\\');
-			var needed = firstLine[0].split(",").map(Number);
-			forbidden = firstLine[1].split(' ');
+				$('.html-code').html("");
+				var lines = task.split("\n");
+				var firstLine = lines.splice(0, 1)[0].split('\\');
+				var needed = firstLine[0].split(",").map(Number);
+				forbidden = firstLine[1].split(' ');
+	
+				$('.forbidden .data').html(firstLine[1]);
+				rootNode = $("<div/>");
+				rootNode.append($(lines.join("\n")));
+				$(rootNode).find('*').each(function (index){
+					$(this).attr('data-csstest-row', index);
+				})
 
-			$('.forbidden .data').html(firstLine[1]);
-			rootNode = $("<div/>");
-			rootNode.append($(lines.join("\n")));
-			$(rootNode).find('*').each(function (index){
-				$(this).attr('data-csstest-row', index);
-			});
-
-			for (var i = 0; i < lines.length; i++) {
-				var source = $("<div/>").text(lines[i]).html();
-				var html = "<tr><td class='line-num'>" + (i+1) + "</td><td><div class='flag'></div></td><td class='code'>" + formatHtml(source.replace(/\t/g, "&nbsp;&nbsp;&nbsp;&nbsp;")) + "</td></tr>";
-				if (needed.indexOf(i) >= 0) {
-					html = $("<div/>").append($(html).addClass('needed')).html();
+				for (var i = 0; i < lines.length; i++) {
+					var source = $("<div/>").text(lines[i]).html();
+					var html = "<tr><td class='line-num'>" + (i+1) + "</td><td><div class='flag'></div></td><td class='code'>" + formatHtml(source.replace(/\t/g, "&nbsp;&nbsp;&nbsp;&nbsp;")) + "</td></tr>";
+					if (needed.indexOf(i) >= 0) {
+						html = $("<div/>").append($(html).addClass('needed')).html();
+					}
+					$('.html-code').append(html);
 				}
-				$('.html-code').append(html);
-			}
-		}).fail(function (){
-			$('.html-wrapper').html("<span style='color: #fff;'>That's all! You are <span style='color: red;'>C</span><span style='color: green;'>S</span><span style='color: blue;'>S</span>-master :)</span>");
-			console.log("Task is not found");
-		});
+		}
+		
+		$.get("../tasks/task-" + num + ".task")
+			.done(function (data) {
+				renderTask(data)
+			})
+			.fail(function() {
+				// Promise. Cuz I can!
+				// U dunno undertand
+				var defer = $.Deferred()
+				if (num > 0 && num <= staticTasks.length) {
+					defer.resolve(staticTasks[num-1])
+				} else {
+					defer.reject("Invalid id " + num)
+				}
+				defer.promise()
+				  .then(function(data){
+						renderTask(data)
+				  })
+				  .fail(function(reason){
+						console.error(reason)
+						$('.html-wrapper').html("<span style='color: #fff;'>That's all! You are <span style='color: red;'>C</span><span style='color: green;'>S</span><span style='color: blue;'>S</span>-master :)</span>");
+						console.log("Task is not found");
+				  })
+			})
+		
 		showHtmlBlock();
 		setTimeout(function (){
 			startTime = new Date();
